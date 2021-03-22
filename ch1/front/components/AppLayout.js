@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { Menu, Input,Button } from 'antd';
 
 const AppLayout = ({children}) => {
@@ -15,7 +16,11 @@ const AppLayout = ({children}) => {
     <Link href="signup"><a><Button>회원가입</Button></a></Link>
     {children}
     </>
-  )
+  );
+};
+
+AppLayout.propTypes = {
+  children: PropTypes.node,
 }
 
 export default AppLayout;

@@ -7,6 +7,7 @@
 import React from 'react';
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
+import PropTypes from 'prop-types';
 
 //Component는 next에서 주는 props로 pages 안에 있는 indexm,profile 등을 준다.
 // 레이아웃을 빼주는작업만으로도 form작업시 위에 레이아웃은 렌더링 되지않아 약간의 성능 향상
@@ -18,10 +19,14 @@ const NodeBird = ({Component}) => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
     </Head>
     <AppLayout>
-      <Component/>
+      <Component />
     </AppLayout>
     </>
-  )
-}
+  );
+};
+
+NodeBird.propTypes = {
+  Component: PropTypes.elementType,
+};
 
 export default NodeBird;
