@@ -1,19 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import AppLayout from '../components/AppLayout';
 import Head from 'next/head';
 import {Form, Input, Button, Checkbox} from 'antd';
 
 const Signup = () => {
 
-  const [id, setId] = useState('');
-  const [nick, setNick] = useState('');
-  const [password, setPassword] = useState('');
+  // const [id, setId] = useState('');
+  // const [nick, setNick] = useState('');
+  // const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [term, setTerm] = useState(false);
   const [passwordError,setPasswordError] = useState('');
   const [termError, setTermError] = useState(false);
 
-  const onSubmit = (e) => {
+    // 반복되는 작업은 줄일 수록 좋다. 커스텀 훅
+    // 자식컴포넌트에 전달하는 함수는 usecallback으로 감싸준다
+    const useInput = (initValue = null) => {
+      const [value, setter] = useState(initValue);
+      const handler = useCallback((e) => {
+        setter(e.target.value);
+      },[]);
+      return [value, handler];
+    };
+  
+    const [id, onChangeId] = useInput('');
+    const [nick, onChangeNick] = useInput('');
+    const [password, onChangePassword] = useInput('');
+
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
     console.log({
       id,
@@ -28,40 +42,23 @@ const Signup = () => {
     if(!term) {
       return setTermError(true);
     }
-  };
+    // usecallback 하면 dependency 배열에 state들도 넣어줘야한다.
+    // usecallback이 기억력이 좋아 deps들이 바뀔 때 이벤트들도 다시 생성됩니다.
+  }, [password, passwordCheck, term]);
 
-  const onChangeId = (e) => {
-    setId(e.target.value);
-  };
-
-  const onChangeNick = (e) => {
-    setNick(e.target.value);
-
-  };
-
-  const onChangePassword= (e) => {
-    setPassword(e.target.value);
-
-  };
-
-  const onChangePasswordCheck = (e) => {
+  const onChangePasswordCheck = useCallback((e) => {
     setPasswordError(e.target.value !== password);
     setPasswordCheck(e.target.value);
 
-  };
+  },[password]);
 
-  const onChangeTerm = (e) => {
+  const onChangeTerm = useCallback((e) => {
     setTermError(false);
     setTerm(e.target.checked)
-  };
+  },[]);
 
   return(
     <>
-    <Head>
-      <title>NodeBird</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
-    </Head>
-    <AppLayout>
       <div>회원가입페이지입니다~</div>
       <Form onSubmit ={onSubmit} style={{padding: 10}}>
         <div>
@@ -93,8 +90,6 @@ const Signup = () => {
         <Button type="primary" htmlType="submit">가입하기</Button>
         </div>
       </Form>
-    </AppLayout>
-      
     </>
   )
   }
