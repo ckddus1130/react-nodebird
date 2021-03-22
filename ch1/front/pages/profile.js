@@ -1,8 +1,8 @@
 import React from 'react';
-import AppLayout from '../../components/AppLayout';
+import AppLayout from '../components/AppLayout';
 import Head from 'next/head';
 
-const Create = () => {
+const Profile = () => {
   return(
     <>
     <Head>
@@ -10,9 +10,11 @@ const Create = () => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
     </Head>
     <AppLayout>
-    <div>유저 생성중 ...</div>
+      <div>프로필</div>
     </AppLayout>
+      
     </>
   )
 }
-export default Create;
+
+export default Profile;

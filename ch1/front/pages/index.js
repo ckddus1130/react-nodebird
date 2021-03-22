@@ -11,7 +11,6 @@ const Home = () => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
     </Head>
     <AppLayout>
-        <Link href="/about"><a>About</a></Link>
         <div>Hello Next~!</div>
       </AppLayout>
     </>
