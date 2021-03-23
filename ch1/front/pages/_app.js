@@ -9,8 +9,15 @@ import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
 import PropTypes from 'prop-types';
 
+// // _document.js 
+// html, head, body를 담당
+// _app.js root 
+// pages  실제 컴포넌트 담당
+// _error.js 에러 발생시
+
 //Component는 next에서 주는 props로 pages 안에 있는 indexm,profile 등을 준다.
 // 레이아웃을 빼주는작업만으로도 form작업시 위에 레이아웃은 렌더링 되지않아 약간의 성능 향상
+
 const NodeBird = ({Component}) => {
   return(
     <>

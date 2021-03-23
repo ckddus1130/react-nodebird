@@ -11,26 +11,26 @@ const TextInput = ({value}) => {
 TextInput.propTypes = {
   value:PropTypes.string,
 }
-
-const Signup = () => {
-
-  // const [id, setId] = useState('');
-  // const [nick, setNick] = useState('');
-  // const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [term, setTerm] = useState(false);
-  const [passwordError,setPasswordError] = useState('');
-  const [termError, setTermError] = useState(false);
-
     // 반복되는 작업은 줄일 수록 좋다. 커스텀 훅
     // 자식컴포넌트에 전달하는 함수는 usecallback으로 감싸준다
-    const useInput = (initValue = null) => {
+    // 한번 만든 커스텀훅을 export를 붙여주면 다른 곳에서도 사용 가능
+    export const useInput = (initValue = null) => {
       const [value, setter] = useState(initValue);
       const handler = useCallback((e) => {
         setter(e.target.value);
       },[]);
       return [value, handler];
     };
+
+const Signup = () => {
+
+    // const [id, setId] = useState('');
+    // const [nick, setNick] = useState('');
+    // const [password, setPassword] = useState('');
+    const [passwordCheck, setPasswordCheck] = useState('');
+    const [term, setTerm] = useState(false);
+    const [passwordError,setPasswordError] = useState('');
+    const [termError, setTermError] = useState(false);
   
     const [id, onChangeId] = useInput('');
     const [nick, onChangeNick] = useInput('');
@@ -55,6 +55,7 @@ const Signup = () => {
     // usecallback이 기억력이 좋아 deps들이 바뀔 때 이벤트들도 다시 생성됩니다.
   }, [password, passwordCheck, term]);
 
+  //커스텀 훅을 사용해서 반복되는 e.target.value 의 작업을 const [id, onChangeId] = useInput(''); 게 줄였다.
   const onChangePasswordCheck = useCallback((e) => {
     setPasswordError(e.target.value !== password);
     setPasswordCheck(e.target.value);
