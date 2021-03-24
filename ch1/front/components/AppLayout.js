@@ -25,8 +25,8 @@ const AppLayout = ({children}) => {
     </Menu>
     
     {/* antd는 기본적으로 반응형입니다. xs:모바일 sm:작은화면
-    md:중간화면, lg: 큰화면 (가로 너비 기준)  */}
-    <Row>
+    md:중간화면, lg: 큰화면 (가로 너비 기준) gutter:Col간의 간격 */}
+    <Row gutter={10}>
        <Col xs={24} md={6} >
          {/* 삼항연산자 작업으로 로그인일시 로그인 안되었을 시 로그인화면 */}
        {dummy.isLoggedIn 
