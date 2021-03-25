@@ -16,9 +16,6 @@ export const loginAction = {
 export const logoutAction = {
   type: LOG_OUT,
 };
-export const Default = {
-
-}
 
 // 리듀서 state와 액션을 받아 다음 state
 // switch 문에 default도 꼭 넣어줘야 합니다.
@@ -40,8 +37,10 @@ export const reducer = (state= initialState, action) => {
       }
     }
 
-    case Default: {
-
+    default: {
+      return{
+        ...state,
+      }
     }
   }
 };

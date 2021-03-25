@@ -3,11 +3,15 @@
 //_app.js는 next에서 기본적으로 제공해주는 것
 // 이 파일을 index,profile,signup페이지들의 부모역할을 합니다.
 // 이 파일에 페이지들의 공통적인 부분을 모아주세요
-
 import React from 'react';
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
 import PropTypes from 'prop-types';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from '../reducers';
+import withRedux from 'next-redux-wrapper';
+//next-redux-wrapper 6으로 하니 getState에러 발생 5버전으로 낮추니 해결
 
 // // _document.js 
 // html, head, body를 담당
@@ -18,22 +22,27 @@ import PropTypes from 'prop-types';
 //Component는 next에서 주는 props로 pages 안에 있는 indexm,profile 등을 준다.
 // 레이아웃을 빼주는작업만으로도 form작업시 위에 레이아웃은 렌더링 되지않아 약간의 성능 향상
 
-const NodeBird = ({Component}) => {
+const NodeBird = ({Component, store}) => {
   return(
-    <>
-    <Head>
-      <title>NodeBird</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
-    </Head>
-    <AppLayout>
+    <Provider store ={store}>
+      <Head>
+        <title>NodeBird</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.19/antd.css"/>
+      </Head>
+      <AppLayout>
       <Component />
-    </AppLayout>
-    </>
+      </AppLayout>
+    </Provider>
   );
 };
 
 NodeBird.propTypes = {
   Component: PropTypes.elementType,
+  store: PropTypes.object,
 };
-
-export default NodeBird;
+// withRedux props로 store를 넣어주는 역할
+export default withRedux((initialState, options) =>{
+  const store = createStore(reducer, initialState);
+  // store 커스터마이징
+  return store;
+})(NodeBird);
