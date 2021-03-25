@@ -17,7 +17,7 @@ const dummy = {
 const PostForm = () => {
   return(
     <div>
-      <Form style={{margin : '20px' }} encType="multipart/form-data">
+      <Form style={{margin: '30px 0px 30px 0px' }} encType="multipart/form-data">
             <Input.TextArea maxLength={140} placeholder="어느 신기한 일이 있었나요?"/>
             <div>
               <Input type="file" multiple hidden />
