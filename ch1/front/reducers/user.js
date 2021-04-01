@@ -3,8 +3,8 @@ export const initialState = {
   user: null,
 }; // 유저의 초기값 정보를 담은 store
 
-const LOG_IN = 'LOG_IN'; // 액션의 이름
-const LOG_OUT = 'LOG_OUT';
+export const LOG_IN = 'LOG_IN'; // 액션의 이름
+export const LOG_OUT = 'LOG_OUT';
 
 export const loginAction = {
   type: LOG_IN,
