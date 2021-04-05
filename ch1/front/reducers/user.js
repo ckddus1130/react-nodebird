@@ -1,16 +1,20 @@
+const dummyUser = {
+  nickname:'테크초',
+  Post: [],
+  Followings: [],
+  Follower:[],
+}
 export const initialState = {
   isLoggedIn : false,
-  user: null,
-}; // 유저의 초기값 정보를 담은 store
+  user: null
+}; 
+// 유저의 초기값 정보를 담은 store
 
 export const LOG_IN = 'LOG_IN'; // 액션의 이름
 export const LOG_OUT = 'LOG_OUT';
 
 export const loginAction = {
   type: LOG_IN,
-  data: {
-    nickname: '테크초',
-  }
 };
 
 export const logoutAction = {
@@ -25,7 +29,7 @@ export const reducer = (state= initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        user:action.data,
+        user:dummyUser,
       }
     }
 

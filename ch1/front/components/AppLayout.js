@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import { Menu, Input, Row, Col, Card, Avatar,Form } from 'antd';
 import LoginForm from './LoginForm';
 import UserProfile from './UserProfile';
-
+import {useSelector} from 'react-redux';
 // 화면 먼저 구성중이라 더미 데이터로 임시로 확인
-const dummy = {
-  nickname: '테크조',
-  Post: [],
-  Followings: [],
-  Follower:[],
-  isLoggedIn:false,
-};
+// 임시로 써놓은 user정보 dummy를 user reducer로 옮겨서 관리
+// const dummy = {
+//   nickname: '테크조',
+//   Post: [],
+//   Followings: [],
+//   Follower:[],
+//   isLoggedIn:false,
+// };
 
 const AppLayout = ({children}) => {
+   const {user, isLoggedIn} = useSelector(state => state.user);
   return(
     <>
     <Menu mode="horizontal" >
@@ -30,7 +32,7 @@ const AppLayout = ({children}) => {
     <Row gutter={10}>
        <Col xs={24} md={6} >
          {/* 삼항연산자 작업으로 로그인일시 로그인 안되었을 시 로그인화면 */}
-       {dummy.isLoggedIn 
+       {isLoggedIn 
        ? <UserProfile/>
         :<LoginForm />
         }
