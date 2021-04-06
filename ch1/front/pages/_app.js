@@ -12,6 +12,8 @@ import {Provider} from 'react-redux';
 import reducer from '../reducers';
 import withRedux from 'next-redux-wrapper';
 //next-redux-wrapper 6으로 하니 getState에러 발생 5버전으로 낮추니 해결
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from '../sagas';
 
 // // _document.js 
 // html, head, body를 담당
@@ -42,15 +44,23 @@ NodeBird.propTypes = {
 };
 // withRedux props로 store를 넣어주는 역할 
 export default withRedux((initialState, options) =>{
+  //사가 미들웨어 만들기
+  const sagaMiddleware = createSagaMiddleware();
+
   // 미들웨어 : 어떠한 작업 중간에 껴서 기능을 추가하거나 변조시키는.. 비동기 state를 처리하는 redux-saga redux-thunk mobx 등을 아래 
   // middleware에 추가해서 사용합니다.
-  const middlewares=[];
-  const enhancer = compose(
-  applyMiddleware(...middlewares),
-  !options.isServer && window.__REDUX_DEVTOOLS__EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
-  );
+  const middlewares=[sagaMiddleware];
+
+  //실제서비스 때는 redux-dev-tools를 안보이게 실제 파일구조가 노출되서는 안된다.
+  const enhancer = process.env.NODE_ENV === 'production' 
+  ? compose(applyMiddleware(...middlewares))
+  : compose(
+    applyMiddleware(...middlewares),
+    !options.isServer && window.__REDUX_DEVTOOLS__EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
+    );
   // next에서 redux를 넣는 방법은 아래와 같이 작성해야합니다. highordercomponent는 기능을 확장하는 것
   const store = createStore(reducer, initialState, enhancer);
+  sagaMiddleware.run(rootSaga);
   return store;
 })(NodeBird);
 
