@@ -26,6 +26,7 @@ const AppLayout = ({children}) => {
         <Input.Search enterButton style={{ verticalAlign: "middle" }} />
       </Menu.Item>
     </Menu>
+  
     
     {/* antd는 기본적으로 반응형입니다. xs:모바일 sm:작은화면
     md:중간화면, lg: 큰화면 (가로 너비 기준) gutter:Col간의 간격 */}

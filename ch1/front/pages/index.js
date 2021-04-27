@@ -18,7 +18,22 @@ const Home = () => {
   //성능 최적화를 위해 user.isLoggedIn 처럼 더 잘게 쪼개서도 사용합니다.
   const { user, isLoggedIn} = useSelector(state => state.user);
   const { mainPosts } = useSelector(state=> state.post);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch({
+      type:'HELLO_SAGA',
+    });
+    dispatch({
+      type:'HELLO_SAGA',
+    });
+    dispatch({
+      type:'HELLO_SAGA',
+    });
+    dispatch({
+      type:'HELLO_SAGA',
+    });
+  },[])
   return(
     // 실제로 state를 화면에 쓰는 법 // 아래의 유저를 가져오는 방법 useSelector를 이용해서 가져옵니다.
         
