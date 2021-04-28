@@ -1,38 +1,39 @@
-import React, {useCallback} from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useCallback } from 'react';
 import Link from 'next/link';
-import {Form, Button, Input} from 'antd';
-import { useInput } from '../pages/signup';
+import { Form, Button, Input } from 'antd';
 import { useDispatch } from 'react-redux';
+import { useInput } from '../pages/signup';
 import { loginAction } from '../reducers/user';
-const LoginForm = () => {
 
+const LoginForm = () => {
   // 커스텀훅을 활용
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
   const dispatch = useDispatch();
-  const onSubmitForm = useCallback((e) =>{
+  const onSubmitForm = useCallback((e) => {
     e.preventDefault();
-    dispatch(loginAction);
-  },[id,password]);
+    dispatch(loginAction());
+  }, [id, password]);
 
-  return(
+  return (
     <>
-    <Form style={{ padding: 10}}onSubmit ={onSubmitForm}>
-    <div>
-      <label htmlFor="user-id">아이디</label>
-      <br/>
-      <Input name="user-id" value={id} onChange={onChangeId} required/>
-    </div>
-    <div>
-      <label htmlFor="user-password">비밀번호</label>
-      <br/>
-      <Input.Password name="user-password" value={password} onChange={onChangePassword} type="password" required/>
-    </div>
-    <div>
-      <Button type="primary" htmlType="submit" loading={false}>로그인</Button>
-      <Link href="signup"><a><Button>회원가입</Button></a></Link>
-    </div>
-  </Form>
+      <Form style={{ padding: 10 }} onSubmit={onSubmitForm}>
+        <div>
+          <label htmlFor="user-id">아이디</label>
+          <br />
+          <Input name="user-id" value={id} onChange={onChangeId} required />
+        </div>
+        <div>
+          <label htmlFor="user-password">비밀번호</label>
+          <br />
+          <Input.Password name="user-password" value={password} onChange={onChangePassword} type="password" required />
+        </div>
+        <div>
+          <Button type="primary" htmlType="submit" loading={false}>로그인</Button>
+          <Link href="signup"><a><Button>회원가입</Button></a></Link>
+        </div>
+      </Form>
     </>
   );
 };

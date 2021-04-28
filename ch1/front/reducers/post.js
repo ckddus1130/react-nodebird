@@ -1,29 +1,29 @@
 export const initialState = {
-  mainPosts:[{
-    User:{
-      id:1,
-      nickname:'테크초',
+  mainPosts: [{
+    User: {
+      id: 1,
+      nickname: '테크초',
     },
-    content:'첫 번째 게시물',
-    img:'https://picsum.photos/200',
+    content: '첫 번째 게시물',
+    img: 'https://picsum.photos/200',
   }],
-  imagePaths:[],
+  imagePaths: [],
 };
 
 const ADD_POST = 'ADD_POST';
 const ADD_DUMMY = 'ADD_DUMMY';
 
 export const addPost = {
-  type:ADD_POST,
+  type: ADD_POST,
 };
 
 export const addDummy = {
-  type:ADD_DUMMY,
+  type: ADD_DUMMY,
   data: {
     content: 'HELLO',
-    userId:1,
+    userId: 1,
     User: {
-      nickname:'테크초',
+      nickname: '테크초',
     },
   },
 };
@@ -33,24 +33,24 @@ export const addDummy = {
 // 스프레드 문법으로 새로 만들면 리액트가 변화를 인지해서 렌더링이 됩니다.
 // 불변성
 export const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case ADD_POST:{
-      return{
+  switch (action.type) {
+    case ADD_POST: {
+      return {
         ...state,
       };
     }
-    case ADD_DUMMY:{
-      return{
+    case ADD_DUMMY: {
+      return {
         ...state,
-        mainPosts:[action.data, ...state.mainPosts],
+        mainPosts: [action.data, ...state.mainPosts],
       };
     }
     default: {
-      return{
+      return {
         ...state,
-      }
+      };
     }
   }
-}
+};
 
 export default reducer;

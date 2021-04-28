@@ -1,5 +1,5 @@
-import { all, call, fork, put, takeLatest, takeEvery, take,delay } from 'redux-saga/effects';
-import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../reducers/user';
+import { all, call, fork, put, takeLatest, takeEvery, take, delay } from 'redux-saga/effects';
+import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../reducers/user';
 
 const HELLO_SAGA = 'HELLO_SAGA';
 
@@ -8,12 +8,13 @@ const HELLO_SAGA = 'HELLO_SAGA';
 // put은 액션 dispatch
 function loginAPI() {
   //서버에 요청을 보내는 부분
+  //return axios.post('./login');
 }
 
 //순서를 무조건 지켜야 하는 것은 call , 부가적인 것이나 당장 필요한 것이 아닌 경우는 fork를 주로 쓴다.
 function* login(){
   try {
-    yield fork(logger); // logger는 내 기록을 로깅하는 함수 10초 걸림 call로 했다면 동기라서 10초후 작업을 함 비효율적
+    //yield fork(logger); //logger는 내 기록을 로깅하는 함수 10초 걸림 call로 했다면 동기라서 10초후 작업을 함 비효율적
     yield call(loginAPI);
     yield put({  //put은 dispatch 동일
       type:LOG_IN_SUCCESS
@@ -34,7 +35,7 @@ function* login(){
 // takeLatest를 사용하면 여러 요청중 마지막 요청만 받아들이고 그에 맞는 응답을 해서 form이나 검색같은 곳에서 takeLatest를 사용합니다.
 // 클릭하면 클릭하는대로 늘어나야하는  counter의 경우는 takeEvery를 사용해서 비동기 관리를 합니다.
 function* watchLogin() {
-  yield takeLatest(LOG_IN, login);
+  yield takeLatest(LOG_IN_REQUEST, login);
 }
 
 // 여러 요청 중 한번만 실행이 필요한 경우는 takeLatest를 통해서 비동기를 관리해줍니다.
