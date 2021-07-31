@@ -5,6 +5,7 @@ import {
   Form, Input, Button, Checkbox,
 } from 'antd';
 import PropTypes from 'prop-types';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const TextInput = ({ value }) => (
   <div>{value}</div>
@@ -39,19 +40,21 @@ const Signup = () => {
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
-    console.log({
-      id,
-      nick,
-      password,
-      passwordCheck,
-      term,
-    });
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
     if (!term) {
       return setTermError(true);
     }
+    return dispatch({
+      type: SIGN_UP_REQUEST,
+      data: {
+        id,
+        password,
+        nick,
+      },
+    });
+
     // usecallback 하면 dependency 배열에 state들도 넣어줘야한다.
     // usecallback이 기억력이 좋아 deps들이 바뀔 때 이벤트들도 다시 생성됩니다.
   }, [password, passwordCheck, term]);

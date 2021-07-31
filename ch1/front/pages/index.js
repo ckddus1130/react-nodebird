@@ -23,7 +23,11 @@ const Home = () => {
     dispatch({
       type: 'HELLO_SAGA',
     });
+    dispatch({
+      type: 'SIGN_UP_REQUEST',
+    });
   }, []);
+
   return (
   // 실제로 state를 화면에 쓰는 법 // 아래의 유저를 가져오는 방법 useSelector를 이용해서 가져옵니다.
     <div>
