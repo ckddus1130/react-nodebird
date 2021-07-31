@@ -8,9 +8,19 @@ export const initialState = {
     img: 'https://picsum.photos/200',
   }], // 화면에 보일 포스트들
   imagePaths: [], // 미리보기 이미지 경로
-  addPostError: false, // 포스트 업로드 실패
+  addPostErrorReason: false, // 포스트 업로드 실패
   isAddingPost: false, // 포스트 업로드 중
+  postAdded: false, // 포스트 업로드 성공
 };
+
+export const dummyPost = {
+  User: {
+    id: 2,
+    nickname: '테크초',
+  },
+  content: '더미 데이터 입니다~',
+};
+
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
@@ -77,18 +87,25 @@ export const reducer = (state = initialState, action) => {
     case ADD_POST_REQUEST: {
       return {
         ...state,
+        isAddingPost: true,
+        addPostErrorReason: '',
       };
     }
 
     case ADD_POST_SUCCESS: {
       return {
         ...state,
+        isAddingPost: false,
+        mainPosts: [dummyPost, ...state.mainPosts], // 기존의 포스트에 dummypost들을 하나씩 추가
+        postAdded: true,
       };
     }
 
     case ADD_POST_FAILURE: {
       return {
         ...state,
+        isAddingPost: false,
+        addPostErrorReason: action.error,
       };
     }
     case ADD_DUMMY: {

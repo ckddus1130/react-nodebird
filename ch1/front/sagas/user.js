@@ -45,14 +45,14 @@ function signUpAPI() {
 }
 function* signUp() {
   try {
-    yield call(signUpAPI);
-    yield put({
-      type: SIGN_UP_SUCCESS,
-    });
+    // yield call(signUpAPI);
+    yield delay(2000);
+    // throw new Error('에러에러에러');
   } catch (e) {
     console.error(e);
     yield put({
       type: SIGN_UP_FAILURE,
+      error: e,
     });
   }
 }

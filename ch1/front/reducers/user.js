@@ -90,6 +90,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: true,
+        loginErrorReason: '',
       };
     }
 
@@ -99,7 +100,6 @@ export const reducer = (state = initialState, action) => {
         isLoggingIn: false,
         isLoggedIn: true,
         me: dummyUser,
-        isLoading: false,
       };
     }
 
@@ -123,7 +123,26 @@ export const reducer = (state = initialState, action) => {
     case SIGN_UP_REQUEST: {
       return {
         ...state,
-        signUpData: action.data,
+        isSigningUp: true,
+        signedUp: false,
+        signUpErrorReason: '',
+      };
+    }
+
+    case SIGN_UP_SUCCESS: {
+      return {
+        ...state,
+        isSigningUp: false,
+        signedUp: true,
+      };
+    }
+
+    case SIGN_UP_FAILURE: {
+      return {
+        ...state,
+        isSigningUp: false,
+        signedUp: false,
+        signUpErrorReason: action.data,
       };
     }
 

@@ -5,6 +5,7 @@ import {
   Form, Input, Button, Checkbox,
 } from 'antd';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const TextInput = ({ value }) => (
@@ -37,7 +38,8 @@ const Signup = () => {
   const [id, onChangeId] = useInput('');
   const [nick, onChangeNick] = useInput('');
   const [password, onChangePassword] = useInput('');
-
+  const dispatch = useDispatch();
+  const { isSigningUp } = useSelector((state) => state.user);
   const onSubmit = useCallback((e) => {
     e.preventDefault();
     if (password !== passwordCheck) {
@@ -100,7 +102,7 @@ const Signup = () => {
           {termError && <div style={{ color: 'red' }}>약관에 동의하셔야 합니다.</div>}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit">가입하기</Button>
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>가입하기</Button>
         </div>
       </Form>
     </>
